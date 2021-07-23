@@ -1,0 +1,36 @@
+https://medium.com/faun/kubernetes-cka-hands-on-challenge-7-rbac-ac1cf1684dd5
+
+To create a cluster role:
+1. k create clusterrole
+2. <clusterrole_name>
+3. --verbs=
+4. --resource=
+5. --resource-name= (optional)
+
+ k create clusterrole  <clusterrole_name> \
+ --verbs=get,list \
+ --resource=pods \
+ --resource-name=nibble (optional)
+
+
+To create a clusterrolebinding:
+1. k create clusterrolebinding
+2. <clusterrolebinding_name>
+3. --clusterrole=
+4. --user=<name> -OR- --group=<name>
+
+
+
+examples:
+
+
+1. create clusterrole and clusterrolebinding so user test@example.com can access and manage secrets.
+     k create clusterrole deploy-role --verb="*" --resource=pods --resource-name=compute --dry-run -o yaml > deploy.role.yaml
+     k create clusterrolebinding deploy-binding --clusterrole=deploy-role --user=test@example.com --dry-run=client -o yaml > deploy.binding.yaml
+
+
+2. Create a ClusterRole and ClusterRoleBinding so that user deploy@test.com can only deploy and manage pods named compute. 
+     k create clusterrole compute-pod --verb="*" --resource=pod --resource-name=compute --dry-run=client -o yaml > compute-pod.yaml
+     k create clusterrolebinding compute-pod-binding --clusterrole=compute-pod --user=deply@test.com --dry-run=client -o yaml > compute-pod-binding.yaml
+
+

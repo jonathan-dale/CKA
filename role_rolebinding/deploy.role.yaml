@@ -1,0 +1,14 @@
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRole
+metadata:
+  creationTimestamp: null
+  name: deploy-role
+rules:
+- apiGroups:
+  - ""
+  resourceNames:
+  - compute
+  resources:
+  - pods
+  verbs:
+  - '*'
